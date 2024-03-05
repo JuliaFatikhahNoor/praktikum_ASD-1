@@ -99,6 +99,47 @@ class TokoDessert:
                 return current_node
             current_node = current_node.next
         return None
+    
+    def tambah_node_awal(self):
+        nama = input("Masukkan nama dessert: ")
+        stok = int(input("Masukkan stok dessert: "))
+        harga = float(input("Masukkan harga dessert: "))
+        varian_rasa_input = input("Masukkan varian rasa dessert (pisahkan dengan koma): ")
+        varian_rasa = varian_rasa_input.split(',') if varian_rasa_input else []
+        jenis = input("Masukkan jenis dessert: ")
+        self.add_first(nama, stok, harga, varian_rasa, jenis)
+
+    def tambah_node_akhir(self):
+        nama = input("Masukkan nama dessert: ")
+        stok = int(input("Masukkan stok dessert: "))
+        harga = float(input("Masukkan harga dessert: "))
+        varian_rasa_input = input("Masukkan varian rasa dessert (pisahkan dengan koma): ")
+        varian_rasa = varian_rasa_input.split(',') if varian_rasa_input else []
+        jenis = input("Masukkan jenis dessert: ")
+        self.add_last(nama, stok, harga, varian_rasa, jenis)
+
+    def tambah_node_setelah(self):
+        node_name = input("Masukkan nama node setelahnya: ")
+        nama = input("Masukkan nama dessert: ")
+        stok = int(input("Masukkan stok dessert: "))
+        harga = float(input("Masukkan harga dessert: "))
+        varian_rasa_input = input("Masukkan varian rasa dessert (pisahkan dengan koma): ")
+        varian_rasa = varian_rasa_input.split(',') if varian_rasa_input else []
+        jenis = input("Masukkan jenis dessert: ")
+        self.add_after(node_name, nama, stok, harga, varian_rasa, jenis)
+
+    def hapus_node_awal(self):
+        removed_node = self.remove_first()
+        print(f"Dessert {removed_node.nama} berhasil dihapus dari menu.")
+
+    def hapus_node_akhir(self):
+        removed_node = self.remove_last()
+        print(f"Dessert {removed_node.nama} berhasil dihapus dari menu.")
+
+    def hapus_node_setelah(self):
+        node_name = input("Masukkan nama node setelahnya: ")
+        removed_node = self.remove_after(node_name)
+        print(f"Dessert {removed_node.nama} berhasil dihapus dari menu.")
 
     def tampilkan_menu_dessert(self):
         if self.is_empty():
@@ -126,7 +167,7 @@ class TokoDessert:
             print(f"Stok {nama_dessert} berhasil diperbarui menjadi {stok_baru}.")
         else:
             print(f"{nama_dessert} tidak ditemukan dalam menu dessert.")
-            
+
     def hapus_dessert(self, nama_dessert):
         if not nama_dessert:
             print("Masukkan nama dessert yang ingin dihapus.")
@@ -179,7 +220,9 @@ class TokoDessert:
             print("|     2. Hapus Dessert   |")
             print("|     3. Tampilkan Menu  |")
             print("|     4. Update Menu     |")
-            print("|     5. Keluar          |")
+            print("|     5. Tambah Node     |")  
+            print("|     6. Hapus Node      |")
+            print("|     7. Kembali         |")
             print("--------------------------")
             pilihan = input("Masukkan pilihan menu: ")
             if pilihan == "1":
@@ -194,11 +237,59 @@ class TokoDessert:
                 stok_baru = int(input("Masukkan stok baru untuk dessert : "))
                 self.update_stok_dessert(nama_dessert, stok_baru) 
             elif pilihan == "5":
+                self.tambah_node_menu()  
+            elif pilihan == "6":
+                self.hapus_node_menu()  
+            elif pilihan == "7":
                 print("Terima kasih. Sampai jumpa!")
                 break
             else:
                 print("Pilihan tidak valid.")
                 continue
+
+    def tambah_node_menu(self):
+        while True:
+            print("\n-----------------------------")
+            print("|      Tambah Node Menu     |")
+            print("-----------------------------")
+            print("|     1. Tambah Node Awal    |")
+            print("|     2. Tambah Node Akhir   |")
+            print("|     3. Tambah Node Setelah |")
+            print("|     4. Kembali             |")
+            print("-----------------------------")
+            pilihan = input("Masukkan pilihan menu: ")
+            if pilihan == "1":
+                self.tambah_node_awal()  
+            elif pilihan == "2":
+                self.tambah_node_akhir()  
+            elif pilihan == "3":
+                self.tambah_node_setelah()  
+            elif pilihan == "4":
+                break
+            else:
+                print("Pilihan tidak valid.")
+
+    def hapus_node_menu(self):
+        while True:
+            print("\n-----------------------------")
+            print("|      Hapus Node Menu      |")
+            print("-----------------------------")
+            print("|     1. Hapus Node Awal     |")
+            print("|     2. Hapus Node Akhir    |")
+            print("|     3. Hapus Node Setelah  |")
+            print("|     4. Kembali             |")
+            print("-----------------------------")
+            pilihan = input("Masukkan pilihan menu: ")
+            if pilihan == "1":
+                self.hapus_node_awal()  
+            elif pilihan == "2":
+                self.hapus_node_akhir()  
+            elif pilihan == "3":
+                self.hapus_node_setelah()  
+            elif pilihan == "4":
+                break
+            else:
+                print("Pilihan tidak valid.")
 
     def menambahkan_dessert(self):
         nama = input("Masukkan nama dessert: ")
@@ -243,3 +334,4 @@ if __name__ == "__main__":
             break
         else:
             print("Pilihan tidak valid.")
+
